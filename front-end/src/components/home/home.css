@@ -1,0 +1,14 @@
+.home{
+    border: 1px solid blue;
+
+}
+
+.home img{
+    max-width: 100%;
+}
+
+h5{
+    background-color: lightslategray;
+    color: white; 
+}
+
