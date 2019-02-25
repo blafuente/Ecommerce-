@@ -9,3 +9,25 @@
 .login-nav-bar{
     height: 30px;
 }
+
+.header .login-nav-bar{
+    height: 30px;
+}
+.header .btn-github{
+    background-image: url("/images/GitHub-Mark-Light-32px.png") !important;
+    color: #fff;
+    background-color: #444;
+    border-color: rgba(0,0,0,0.2);
+    background-repeat: no-repeat;
+    background-position: 5px;
+    width: 210px;
+    text-align: right;
+}
+.btn-github:hover{
+    color: rgba(200,200,200,0.5);
+}
+
+.welcome{
+    font-size: 25px;
+    font-style: oblique;
+}
