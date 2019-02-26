@@ -8,7 +8,6 @@ class Home extends Component{
     render(){
         return(
             <div className="col s12 home">
-                <h5>Nav Bar</h5>
                 <Carousel />
                 <MiniNav />
                 <Content />
