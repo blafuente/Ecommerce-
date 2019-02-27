@@ -19,5 +19,14 @@ router.get('/auth/github/callback',passport.authenticate('github'),(req, res)=>{
   // res.json(req.user);
 })
 
+router.post('/register',(req,res)=>{
+  // bcrypt
+  // check if username exist
+  // if not, insert -- username, hashed password
+    // -- create a token
+  // if so, let react know
+  res.json(req.body);
+})
+
 
 module.exports = router;
