@@ -5,6 +5,8 @@ const pgp = require('pg-promise')()
 const config = require('../config');
 const connection = config.pg;  
 const db = pgp(connection);
+const bcrypt = require('bcrypt-nodejs');
+const randToken = require('rand-token');
 
 router.get('/auth/github',passport.authenticate('github'));
 
@@ -22,10 +24,30 @@ router.get('/auth/github/callback',passport.authenticate('github'),(req, res)=>{
 router.post('/register',(req,res)=>{
   // bcrypt
   // check if username exist
+  const checkUsernameQuery = `SELECT * FROM users WHERE username = $1`;
+  db.query(checkUsernameQuery,[req.body.username]).then((results)=>{
+    // console.log(results);
+    if(results.length === 0){
+      // user does not exist!!! let's add them
+      const insertUserQuery = `INSERT INTO users (username,password,token) VALUES ($1,$2,$3)`;
+      const token = randToken.uid(50);
+      // use bcrypt.hashSync to make their password something evil
+      const hash = bcrypt.hashSync(req.body.password);
+      db.query(insertUserQuery,[req.body.username,hash,token]).then(()=>{
+        res.json({msg: "userAdded"});
+      })
+    }else{
+      // user exists!
+      res.json({msg: "userExists"})
+    }
+  }).catch((error)=>{
+    if(error){throw error;}
+  });
+
   // if not, insert -- username, hashed password
     // -- create a token
   // if so, let react know
-  res.json(req.body);
+  // res.json(req.body);
 })
 
 
