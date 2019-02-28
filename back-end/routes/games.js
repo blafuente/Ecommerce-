@@ -17,5 +17,14 @@ router.get('/getHome', (req,res)=>{
         if(error){throw error}
     })
 })
+router.get('/:gid',(req,res)=>{
+    const gid = req.params.gid;
+    const selectQuery = `SELECT * FROM games WHERE id = $1 `;
+    db.query(selectQuery,[gid]).then((gameData)=>{
+        res.json(gameData);
+    }).catch((error)=>{
+        if(error){throw error;}
+    })
+})
 
 module.exports = router;
