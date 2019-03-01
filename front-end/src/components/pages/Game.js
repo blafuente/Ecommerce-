@@ -14,6 +14,13 @@ class Game extends Component{
         }
     }
 
+    componentWillReceiveProps(newProps){
+        if(newProps.cart.length !== this.props.cart.length){
+            // user just changed their cart... onward to homepage!
+            this.props.history.push('/?added=item')
+        }
+    }
+
     componentDidMount(){
         console.log(this.props.match.params.id);
         const gid = this.props.match.params.id
@@ -28,7 +35,7 @@ class Game extends Component{
 
     addToCart = (event) =>{
         // token, iteam
-        const token = this.props.token
+        const token = this.props.auth.token
         this.props.updateCart(token,this.state.game.id);
     }
 
@@ -73,9 +80,10 @@ class Game extends Component{
 }
 
 function mapStateToProps(state){
-    return bindActionCreators({
-        auth: state.auth
-    })
+    return {
+        auth: state.auth,
+        cart: state.cart,
+    }
 }
 
 function mapDispatchToProps(dispatch) {

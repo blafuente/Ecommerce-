@@ -25,6 +25,7 @@ router.post('/getCart',(req,res)=>{
 // /cart/updateCart
 router.post('/updateCart',(req,res)=>{
     // res.json("test");
+    console.log(req.body)
     const token = req.body.token;
     const itemId = req.body.itemId
     const getUser = `SELECT id FROM users WHERE token = $1  `
@@ -37,7 +38,7 @@ router.post('/updateCart',(req,res)=>{
         }else{
             // this is a legit token. I know what user this is
             const uid = results[0].id;
-            const addToCartQuery = `INSERT INTO car (uid,gid,date)
+            const addToCartQuery = `INSERT INTO cart (uid,gid,date)
                 VALUES
                 ($1,$2,NOW()) `
             db.query(addToCartQuery,[uid,itemId]).then(()=>{
